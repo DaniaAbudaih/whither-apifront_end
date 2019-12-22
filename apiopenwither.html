@@ -1,0 +1,77 @@
+<html>
+<head>
+<style type="text/css">
+
+body{
+	background-color:   #f0e4a3    ;	
+	margin-top:8em;
+	text-align:center;
+    } 
+    h1{color:e0708a;}
+   
+   div.css{ 
+	 border: 6px solid   #98bae2 ;
+	text-align:center;
+	margin: auto;
+	 height:30%;
+	 width:50%;
+	 padding-top: 3em;
+	 color:#225896;
+    text-shadow: 2px 2px 5px }
+      .h{color:e0708a;
+         padding-top:6em;}
+		 
+     button{
+	 background-color:white ;
+	 border-radius: 20px;
+	  color:e0708a;
+	   border:  solid #e7e7e7;
+	 }
+.city{
+       border-radius: 60%;
+       color-text:#121f43;}
+   </style>
+</head>
+       <body>
+<h1 > Temp is: </h1> 
+    <div class="css" >
+      <input type="text" id="city"/>
+      <button id="sertsh" onclick="Go()"> Ok </button>
+	  <h3>
+	<span>
+	<div id="erorr"></div>
+	  <div id="temp"></div>
+	   <div id="temp_min"></div> 
+	   <div id="temp_max"></div> 
+	   <div id="humid"></div>
+	</span>
+	</h3>
+	</div>
+	 <h3 class="h"> Good Bye</h3>
+  </body>
+     <script> 
+	 function Go(){
+	var citytext= document.getElementById("city").value;
+	   getData(citytext).then(data =>{
+	    console.log(data);
+		if (data !=false ){
+		document.getElementById("temp").innerHTML = data["main"]["temp"]+" Temp:";
+	document.getElementById("temp_min").innerHTML = data["main"]["temp_min"]+" temp_min:";
+	document.getElementById("temp_max").innerHTML = data["main"]["humidity"]+" humidity";
+	document.getElementById("humid").innerHTML = data["main"]["temp_max"]+" temp_max";
+	    }
+		else {document.getElementById("erorr").innerHTML = "erorr in fetching data";}
+		});
+	 }
+	 
+	 async  function getData(city){
+	      var response= await fetch("https://api.openweathermap.org/data/2.5/weather?q="+city+"&units=metric&appid=63dd83deb86e6d11e7dd7edc8667fe4f");
+	
+	if(response.status==200)
+	       return response.json();
+	   else 
+	return false;
+	                                   }
+      </script>
+  
+</html>
